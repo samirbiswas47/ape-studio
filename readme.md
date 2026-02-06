@@ -1,0 +1,54 @@
+# If you do NOT use a virtual environment, all installed Python packages (Django, DRF, Pillow, etc.) are installed globally for that Python installation.
+
+# Where you see them depends on your OS and how Python is installed.
+
+# Since you are not using a virtual environment:
+
+❌ Package version conflicts can happen
+❌ Upgrading Django may break other projects
+❌ Hard to reproduce environment on server
+
+""#
+python -m venv venv
+venv\Scripts\activate # Windows
+source venv/bin/activate # Linux/Mac
+source venv/Scripts/activate # Windows bash
+deactivate # Windows bash
+python -m pip install --upgrade pip
+pip install -r ./requirements.txt
+
+python ./manage.py makemigrations
+python ./manage.py migrate
+python ./manage.py populate_db
+//GraphvizOnline
+python ./manage.py graph_models api > models.dot
+
+### Optimization query
+
+# see the documentation https://github.com/jazzband/django-silk
+
+pip install django-silk
+
+# To apply silk would be apply to model
+
+python ./manage.py migrate
+
+# To create supper admin
+
+python manage.py createsuperuser
+
+# Username: superuser
+
+# Email address: super@gmail.com
+
+# My git repository
+
+echo "# rest-freamework" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/samirbiswas47/rest-freamework.git
+git push -u origin main
+
+### Topic
