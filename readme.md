@@ -46,9 +46,22 @@ python manage.py createsuperuser
 echo "# rest-freamework" >> README.md
 git init
 git add README.md
-git commit -m "first commit"
+git commit -m "init"
 git branch -M main
 git remote add origin https://github.com/samirbiswas47/rest-freamework.git
 git push -u origin main
+
+# or push an existing repository from the command line
+
+git remote add origin https://github.com/samirbiswas47/rest-freamework.git
+git branch -M main
+git push -u origin main
+
+git config user.name && git config user.email
+git log --format="%an <%ae>" -5
+
+git config user.name "samirbiswas47"
+git commit --amend --author="samirbiswas47 <samir@gmail.com>" --no-edit
+git push --force
 
 ### Topic
