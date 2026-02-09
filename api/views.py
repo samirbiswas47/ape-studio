@@ -6,7 +6,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAdminUser,
+    AllowAny
+)
 from rest_framework.views import APIView
 
 
@@ -16,10 +20,30 @@ class ProductListAPIView(generics.ListAPIView):
     #queryset = Product.objects.exclude(stock__gt=0)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes= [AllowAny]
 
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    def get_permissions(self):
+        self.permission_classes=[AllowAny]
+        if self.request.method == 'POST':
+            self.permission_classes=[IsAdminUser]
+        return super().get_permissions()
+
+class ProductGetCreateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_url_kwarg= 'product_id'
+    def get_permissions(self):
+        self.permission_classes=[AllowAny]
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes=[IsAdminUser]
+        return super().get_permissions()
 class ProductCreateAPIView(generics.CreateAPIView):
     model= Product
     serializer_class = ProductSerializer
+    permission_classes= [IsAdminUser]
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
@@ -29,6 +53,7 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
+    permission_classes= [IsAdminUser]
 
 class UserOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')

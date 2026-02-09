@@ -1,0 +1,50 @@
+GET http://localhost:8000/products/ HTTP/1.1
+###
+POST http://localhost:8000/products/create/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwNjI1MTM3LCJpYXQiOjE3NzA2MjQ4MzcsImp0aSI6IjU2NTdjODhlM2I4ZTRlZjlhYzhlMmViNDI5NTRmYWM1IiwidXNlcl9pZCI6IjMifQ.0kMWOlsBiYQkVRywXzubvBxDLLBtQGT1joxNAY8aY8U
+
+{
+    "name": "TV",
+    "price": 300.00,
+    "stock":14,
+    "description": "Televission"
+}
+
+###
+POST http://localhost:8000/products/read_write_delete/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwNjI2NDg4LCJpYXQiOjE3NzA2MjYxODgsImp0aSI6IjZlZDZlMzM4OTA4ZDQ1YWZiZjVlZjBmNDFlY2VlMzNlIiwidXNlcl9pZCI6IjMifQ.Hbh4o1R0rxp_jr4oNUQcOzJ37LDEaISfwhCODCS-Ec4
+
+{
+    "name": "TV",
+    "price": 300.00,
+    "stock":14,
+    "description": "Televission"
+}
+
+###
+GET http://localhost:8000/products/read_write_delete/1 HTTP/1.1
+Content-Type: application/json
+
+###
+DELETE http://localhost:8000/products/read_write_delete/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwNjI2NDg4LCJpYXQiOjE3NzA2MjYxODgsImp0aSI6IjZlZDZlMzM4OTA4ZDQ1YWZiZjVlZjBmNDFlY2VlMzNlIiwidXNlcl9pZCI6IjMifQ.Hbh4o1R0rxp_jr4oNUQcOzJ37LDEaISfwhCODCS-Ec4
+
+###
+POST http://localhost:8000/api/token/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "samir",
+    "password": "test"
+}
+
+###
+POST http://localhost:8000/api/token/refresh/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MDcxMTE3NCwiaWF0IjoxNzcwNjI0Nzc0LCJqdGkiOiI5Yzg5YTFhMDA3ZmU0YmEzODFmZmU4ODg4NDI0NTJmZiIsInVzZXJfaWQiOiIzIn0.usdkJg0m1ZQCg0h1OitzJtcAHGm_bmxqYW3WTurSvhA"
+}

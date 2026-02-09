@@ -23,6 +23,19 @@ python ./manage.py populate_db
 //GraphvizOnline
 python ./manage.py graph_models api > models.dot
 
+# Simple JWT can be installed with pip
+
+# see the documentation https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html
+
+pip install djangorestframework-simplejwt
+
+# Documenting your API
+
+# see the documentation https://github.com/tfranzel/drf-spectacular/
+
+pip install drf-spectacular
+python manage.py spectacular --color --file schema.yml
+
 ### Optimization query
 
 # see the documentation https://github.com/jazzband/django-silk
