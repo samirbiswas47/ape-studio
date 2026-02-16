@@ -42,6 +42,10 @@ python manage.py spectacular --color --file schema.yml
 
 pip install django-silk
 
+# see the documentation https://django-filter.readthedocs.io/en/latest/guide/usage.html
+
+pip install django-filter
+
 # To apply silk would be apply to model
 
 python ./manage.py migrate
