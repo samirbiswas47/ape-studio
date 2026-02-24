@@ -37,7 +37,7 @@ POST http://localhost:8000/api/token/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "samir",
+    "username": "admin",
     "password": "test"
 }
 
@@ -48,3 +48,53 @@ Content-Type: application/json
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MDcxMTE3NCwiaWF0IjoxNzcwNjI0Nzc0LCJqdGkiOiI5Yzg5YTFhMDA3ZmU0YmEzODFmZmU4ODg4NDI0NTJmZiIsInVzZXJfaWQiOiIzIn0.usdkJg0m1ZQCg0h1OitzJtcAHGm_bmxqYW3WTurSvhA"
 }
+###
+POST http://localhost:8000/order-viewset/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyMDA2Nzc5LCJpYXQiOjE3NzE5MjAzNzksImp0aSI6IjU2YzgzZmUzZWU2YjQ0NzdiM2U4NWMwOGFiODY2ZmY2IiwidXNlcl9pZCI6IjEifQ.JNXlAsiaIMUJb8wnLOgtldo9BI1n927OOfaoMLEXtpY
+
+{
+    "status": "Confirmed",
+    "items":[
+        {
+            "product":1,
+            "quantity":3
+        },
+        {
+            "product":4,
+            "quantity":5
+        }
+    ] 
+}
+###
+PUT http://localhost:8000/order-viewset/7f1fddf9-40ad-4e2e-896e-068d493f81ae/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyMDA2Nzc5LCJpYXQiOjE3NzE5MjAzNzksImp0aSI6IjU2YzgzZmUzZWU2YjQ0NzdiM2U4NWMwOGFiODY2ZmY2IiwidXNlcl9pZCI6IjEifQ.JNXlAsiaIMUJb8wnLOgtldo9BI1n927OOfaoMLEXtpY
+
+{ 
+    "status": "Confirmed",
+    "items":[
+        {
+            "product":1,
+            "quantity":2
+        },
+        {
+            "product":4,
+            "quantity":4
+        }
+    ] 
+}
+
+
+###
+GET http://localhost:8000/order-viewset/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyMDA2Nzc5LCJpYXQiOjE3NzE5MjAzNzksImp0aSI6IjU2YzgzZmUzZWU2YjQ0NzdiM2U4NWMwOGFiODY2ZmY2IiwidXNlcl9pZCI6IjEifQ.JNXlAsiaIMUJb8wnLOgtldo9BI1n927OOfaoMLEXtpY
+
+
+###
+GET http://localhost:8000/order-viewset/7f1fddf9-40ad-4e2e-896e-068d493f81ae/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyMDA2Nzc5LCJpYXQiOjE3NzE5MjAzNzksImp0aSI6IjU2YzgzZmUzZWU2YjQ0NzdiM2U4NWMwOGFiODY2ZmY2IiwidXNlcl9pZCI6IjEifQ.JNXlAsiaIMUJb8wnLOgtldo9BI1n927OOfaoMLEXtpY
+
+###
+DELETE http://localhost:8000/order-viewset/7f1fddf9-40ad-4e2e-896e-068d493f81ae/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyMDA2Nzc5LCJpYXQiOjE3NzE5MjAzNzksImp0aSI6IjU2YzgzZmUzZWU2YjQ0NzdiM2U4NWMwOGFiODY2ZmY2IiwidXNlcl9pZCI6IjEifQ.JNXlAsiaIMUJb8wnLOgtldo9BI1n927OOfaoMLEXtpY

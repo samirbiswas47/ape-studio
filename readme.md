@@ -29,6 +29,10 @@ python ./manage.py graph_models api > models.dot
 
 pip install djangorestframework-simplejwt
 
+# api.http REST Client
+
+add extention for REST Client
+
 # Documenting your API
 
 # see the documentation https://github.com/tfranzel/drf-spectacular/
@@ -45,6 +49,11 @@ pip install django-silk
 # see the documentation https://django-filter.readthedocs.io/en/latest/guide/usage.html
 
 pip install django-filter
+
+# to sort import of views
+
+pip install isort
+isort ./api/views.py
 
 # To apply silk would be apply to model
 
