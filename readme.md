@@ -14,8 +14,12 @@ venv\Scripts\activate # Windows
 source venv/bin/activate # Linux/Mac
 source venv/Scripts/activate # Windows bash
 deactivate # Windows bash
+
+django-admin startapp <name_app>
 python -m pip install --upgrade pip
 pip install -r ./requirements.txt
+pip list
+pip freeze > requirements.txt
 
 python ./manage.py makemigrations
 python ./manage.py migrate

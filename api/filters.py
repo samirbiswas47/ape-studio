@@ -1,26 +1,48 @@
 import django_filters
-from api.models import Product, Order, OrderItem
+from api.models import User, Portfolio, Service, Testimonial, Enquiry, NewsletterSubscriber
 from rest_framework import filters
 
-class InStockFilterBackend(filters.BaseFilterBackend):
-    def filter_queryset(self, request, queryset, view):
-        return queryset.filter(stock__gt=0)
-        #return queryset.exclude(stock__gt=0)
-class ProductFilter(django_filters.FilterSet):
+class PortfolioFilter(django_filters.FilterSet):
+    #created_at = django_filters.DateFilter('created_at__date')
     class Meta:
-        model = Product
-        #fields = ['name', 'price']
-        fields = {
-            'name':['iexact', 'icontains'],
-            'price':['exact', 'gt', 'lt', 'range']
-        }
+        model = Portfolio
+        fields = ['title']
 
-class OrderFilter(django_filters.FilterSet):
-    created_at = django_filters.DateFilter('created_at__date')
+class ServiceFilter(django_filters.FilterSet):
     class Meta:
-        model = Order
-        #fields = ['name', 'price']
-        fields = {
-            'status':['exact'],
-            'created_at':['exact', 'gt', 'lt']
-        }
+        model = Service
+        fields = ['title']
+
+class TestimonialFilter(django_filters.FilterSet):
+    class Meta:
+        model = Testimonial
+        fields = ['client_name', 'rating']
+
+class UserFilter(django_filters.FilterSet):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'email',
+        ]
+
+class EnquiryFilter(django_filters.FilterSet):
+    class Meta:
+        model = Enquiry
+        fields = [
+            'name',
+            'email',
+            'phone',
+            'service_interest',
+            'is_read',
+        ]
+
+
+class NewsletterSubscriberFilter(django_filters.FilterSet):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = [
+            'email',
+            'subscribed_at',
+        ]

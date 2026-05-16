@@ -1,122 +1,123 @@
 from rest_framework import serializers
-from .models import Product, Order, OrderItem, User
+from .models import  User, Portfolio, Service, Testimonial, Enquiry, NewsletterSubscriber
 
 class UserSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(
+        source='get_full_name',
+        read_only=True
+    )
+    # Accept raw password input
+    password = serializers.CharField(
+        write_only=True,
+        required=False
+    )
     class Meta:
         model = User
-        fields =(
+        fields = (
             'id',
             'username',
             'email',
             'is_staff',
-            'is_authenticated',
-            'get_full_name',
-            'orders'
+            'full_name',
+            'password'
         )
-        
+
+    # CREATE USER
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        user = User(**validated_data)
+        if password:
+            user.set_password(password)
+        user.save()
+        return user
+
+    # UPDATE USER
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        # Encrypt updated password
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
         '''
         exclude = ('password', 'user_permissions')
         fields ='__all__'
         '''
-class ProductSerializer(serializers.ModelSerializer):
+class PortfolioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
-        fields= (
-            'name',
-            'price',
-            'stock',
+        model = Portfolio
+        fields =(
+            'id',
+            'title',
             'description',
-        ) 
-    def validate_price(self, value):
-        if value <= 0:
-            raise serializers.ValidationError(
-                "Price must be greater than 0."
-            )
-        return value
-
-class OrderItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
-    product_name = serializers.CharField(source = 'product.name')
-    product_price = serializers.DecimalField(source = 'product.price', max_digits=10, decimal_places=2)
-    class Meta:
-        model =OrderItem
-        fields =(
-            'product',
-            'product_name',
-            'product_price',
-            'quantity',
-            'item_subtotal'
-        )
-
-class OrderCreateSerializer(serializers.ModelSerializer):
-    class OrderItemCreateSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = OrderItem
-            fields = ('product', 'quantity')
-    order_id = serializers.UUIDField(read_only= True)
-    items =OrderItemCreateSerializer(many= True)
-
-    def update(self, instance, validated_data):
-        orderitem_data = validated_data.pop('items')
-        instance = super().update(instance, validated_data)
-
-        if orderitem_data is not None:
-            # Clear existing item (optional, depends on requirements)
-            instance.items.all().delete()
-
-            # Recreate items with the updated data
-            for item in orderitem_data:
-                OrderItem.objects.create( order= instance, **item)
-
-            return instance
-    
-    def create(self, validated_data):
-        orderitem_data = validated_data.pop('items')
-        order = Order.objects.create(**validated_data)
-
-        for item in orderitem_data:
-            OrderItem.objects.create( order= order, **item)
-
-        return order
-
-    class Meta:
-        model = Order
-        fields =(
-            'order_id',
-            'user',
-            'status',
-            'items'
-        )
-        extra_kwargs = {
-            'user': { 'read_only': True }
-        }
-
-class OrderSerializer(serializers.ModelSerializer):
-    order_id = serializers.UUIDField(read_only= True)
-    items = OrderItemSerializer(many=True, read_only= True)
-    total_price = serializers.SerializerMethodField(method_name="total")
-
-    ## If you not define method_name ##
-    # def get_total_price(self, obj):
-    #     order_items =obj.items.all()
-    #     return sum(order_item.item_subtotal for order_item in order_items)
-
-    def total(self, obj):
-        order_items =obj.items.all()
-        return sum(order_item.item_subtotal for order_item in order_items)
-    
-    class Meta:
-        model = Order
-        fields =(
-            'order_id',
+            'image',
+            'project_url',
+            'technologies',
+            'featured',
+            'is_deleted', 
+            'is_active',
             'created_at',
-            'user',
-            'status',
-            'items',
-            'total_price',
+            'updated_at'
         )
 
-class ProductInfoSerialization(serializers.Serializer):
-    products= ProductSerializer(many= True)
-    count = serializers.IntegerField()
-    max_price = serializers.FloatField()
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields =(
+            'id',
+            'title',
+            'description',
+            'icon',
+            'is_deleted', 
+            'is_active',
+            'created_at',
+            'updated_at'
+        )
+
+class TestimonialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonial
+        fields =(
+            'id',
+            'client_name',
+            'company',
+            'feedback',
+            'rating',
+            'image',
+            'is_published',
+            'is_deleted', 
+            'is_active',
+            'created_at',
+            'updated_at'
+        )
+class EnquirySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enquiry
+        fields =(
+            'id',
+            'name',
+            'email',
+            'phone',
+            'service_interest',
+            'message',
+            'is_read',
+            'is_deleted', 
+            'is_active',
+            'created_at',
+            'updated_at'
+        )
+
+class NewsletterSubscriberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsletterSubscriber
+        fields =(
+            'id',
+            'email',
+            'subscribed_at',
+            'is_deleted', 
+            'is_active',
+            'created_at',
+            'updated_at'
+        )
