@@ -95,3 +95,4 @@ git commit --amend --author="samirbiswas47 <samir@gmail.com>" --no-edit
 git push --force
 
 ### Topic
+gunicorn admin.wsgi:application --workers 1 --threads 2
