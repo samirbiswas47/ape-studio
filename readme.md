@@ -21,6 +21,11 @@ pip install -r ./requirements.txt
 pip list
 pip freeze > requirements.txt
 
+pip install pygraphviz
+pip install pydotplus
+python manage.py graph_models backend > models.dot
+# check with Graphviz Online
+
 python ./manage.py makemigrations
 python ./manage.py migrate
 python ./manage.py populate_db
