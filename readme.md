@@ -100,4 +100,5 @@ git commit --amend --author="samirbiswas47 <samir@gmail.com>" --no-edit
 git push --force
 
 ### Topic
+pip install whitenoise gunicorn
 gunicorn admin.wsgi:application --workers 1 --threads 2
