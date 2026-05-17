@@ -42,8 +42,6 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2025.2
 uritemplate==4.2.0
-vercel==0.5.8
-vercel-workers==0.0.23
 webencodings==0.5.1
 websockets==16.0
 whitenoise==6.12.0
