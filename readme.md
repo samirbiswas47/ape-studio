@@ -1,104 +1,69 @@
-# If you do NOT use a virtual environment, all installed Python packages (Django, DRF, Pillow, etc.) are installed globally for that Python installation.
-
-# Where you see them depends on your OS and how Python is installed.
-
-# Since you are not using a virtual environment:
-
-❌ Package version conflicts can happen
-❌ Upgrading Django may break other projects
-❌ Hard to reproduce environment on server
-
-""#
+# To create python environment
 python -m venv venv
-venv\Scripts\activate # Windows
-source venv/bin/activate # Linux/Mac
+
+# To activte python environment
 source venv/Scripts/activate # Windows bash
-deactivate # Windows bash
+venv\Scripts\activate # Windows
 
-django-admin startapp <name_app>
-python -m pip install --upgrade pip
+# To install python dependency library
 pip install -r ./requirements.txt
-pip list
-pip freeze > requirements.txt
 
-pip install pygraphviz
-pip install pydotplus
-python manage.py graph_models backend > models.dot
-# check with Graphviz Online
-
+# To database migrate
 python ./manage.py makemigrations
 python ./manage.py migrate
-python ./manage.py populate_db
-//GraphvizOnline
-python ./manage.py graph_models api > models.dot
 
-# Simple JWT can be installed with pip
-
-# see the documentation https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html
-
-pip install djangorestframework-simplejwt
-
-# api.http REST Client
-
-add extention for REST Client
-
-# Documenting your API
-
-# see the documentation https://github.com/tfranzel/drf-spectacular/
-
-pip install drf-spectacular
-python manage.py spectacular --color --file schema.yml
-
-### Optimization query
-
-# see the documentation https://github.com/jazzband/django-silk
-
-pip install django-silk
-
-# see the documentation https://django-filter.readthedocs.io/en/latest/guide/usage.html
-
-pip install django-filter
-
-# to sort import of views
-
-pip install isort
-isort ./api/views.py
-
-# To apply silk would be apply to model
-
-python ./manage.py migrate
-
-# To create supper admin
-
+# To create super admin
 python manage.py createsuperuser
 
-# Username: superuser
+# Example: 
+Username: superuser
+Email address: super@gmail.com
+Password: as user defined
 
-# Email address: super@gmail.com
+# To start application
+python manage.py runserver
+or change port
+python manage.py runserver 127.0.0.1:9000
 
-# My git repository
+# environment setup
+APP_TYPE=development|production
+DEBUG=True|False
+SECRET_KEY=your-app-secret-key
+EMAIL_HOST=smtp.hostinger.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=user email
+EMAIL_HOST_PASSWORD= userpassword
+EMAIL_USE_TLS=True
+DATABASE_URL=
 
-echo "# rest-freamework" >> README.md
-git init
-git add README.md
-git commit -m "init"
-git branch -M main
-git remote add origin https://github.com/samirbiswas47/rest-freamework.git
-git push -u origin main
+# Note: We used to database based on "APP_TYPE" one is sqlite3 for development and another postgres for production
 
-# or push an existing repository from the command line
+# Following url for the application
+Admin Backend: https://ape-studio.onrender.com/admin (Note: to login admin panel user must have Staff role)
+System User Api Endpoint: https://ape-studio.onrender.com (Note: User only can perform CRUD operation once they login throuh admin or admin panel)
+Developer Api endpoint: https://ape-studio.onrender.com/api/schema/swagger-ui/
+Developer API Docs: https://ape-studio.onrender.com/api/schema/redoc
 
-git remote add origin https://github.com/samirbiswas47/rest-freamework.git
-git branch -M main
-git push -u origin main
+# Module:
+1. Group: Admin can create  group for permission
+2. Users: All user action
+3. Email templates: Pre defined email template for email
+4. Enquirys: Store enquiries (Name, Email, Phone, Service Interest, Message) in a database.
+5. Services: Services list
+6. Portfolio: 
+7. Newsletter Subscribers:
+8. Testimonials:
 
-git config user.name && git config user.email
-git log --format="%an <%ae>" -5
 
-git config user.name "samirbiswas47"
-git commit --amend --author="samirbiswas47 <samir@gmail.com>" --no-edit
-git push --force
+# GitHub Repository 
+https://github.com/samirbiswas47/ape-studio
 
-### Topic
-pip install whitenoise gunicorn
-gunicorn admin.wsgi:application --workers 1 --threads 2
+# We made softdelete for All modlue user delete action (Finally admin can delete based on delete permission through admin panel)
+
+# Technology Recomendation:
+I built the backend using Django and Django REST Framework because they provide a scalable and secure architecture for rapid backend development. The project follows a modular structure with separate apps for APIs, admin management, and email services. SQLite3 was used for local development due to its simplicity and quick setup, while PostgreSQL was configured for production to ensure better scalability and reliability. Database switching is handled dynamically using the APP_TYPE environment variable. Session-based authentication was implemented for secure admin access, and protected API routes were added for authenticated users. Automated email acknowledgments are sent asynchronously to improve performance and user experience. The backend is deployed on Render with environment-based configuration management for security and maintainability.
+
+Admin Backend: Admin Panel (Session base authentication)
+System User API Endpoint: API Base URL (Session base authentication)
+Developer Swagger Docs: Swagger UI (JWT token base authentication)
+Developer ReDoc: ReDoc Documentation
